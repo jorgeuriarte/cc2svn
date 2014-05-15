@@ -420,7 +420,7 @@ def writeTextContentLength(out, len):
     out.write("Text-content-length: " + str(len) + "\n")
 
 def writeNodePath(out, nodePath):
-    out.write("Node-path: " + nodePath + "\n")
+    out.write("Node-path: " + toUTF8(nodePath) + "\n")
 
 def writeNodeKind(out, nodeKind):
     out.write("Node-kind: " + nodeKind + "\n")
@@ -1006,7 +1006,7 @@ def main():
 
             parser = CCHistoryParser()
 
-            with open(HISTORY_FILE, 'rb') as historyFile:
+            with codecs.open(HISTORY_FILE, mode='rb', encoding='ISO-8859-1') as historyFile:
                 for line in rlines(historyFile, HISTORY_LINE_SEPARATOR): # reading lines in reverse order
                     ccRecord = parser.processLine(line)
                     if ccRecord:
